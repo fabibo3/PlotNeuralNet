@@ -1,5 +1,4 @@
 \ProvidesPackage{LeftBandedCylinder}
-\usetikzlibrary{shapes.geometric}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This Block can draw simple block of cylinders with custom colors. 
@@ -9,8 +8,9 @@
                 
         \tikzstyle{box}=[every edge/.append style={pic actions, densely dashed, opacity=.7},fill opacity=\opacity, pic actions,fill=\fill]
         
-        \tikzstyle{band}=[every edge/.append style={pic actions, densely dashed, opacity=.7},fill opacity=\bandopacity, pic actions,fill=\bandfill]
-        \tikzstyle{boxinner}=[every edge/.append style={pic actions, densely dashed, opacity=.7},fill opacity=\opacity, pic actions,fill=\fill, draw=\fill]
+        \tikzstyle{band}=[every edge/.append style={pic actions, densely
+        dashed, opacity=.7},fill opacity=\bandopacity, pic
+        actions,fill=\bandfill, draw=\bandfill]
         
         \pgfmathsetmacro{\y}{\cubey*\scale}
         \pgfmathsetmacro{\z}{\cubez*\scale}
@@ -40,38 +40,62 @@
             \coordinate (bli)    at (\k-2*\x/3, -\y/2, 0);
             \coordinate (chi)    at (\k, \y/2, 0);
             \coordinate (cli)    at (\k, -\y/2, 0);
+            \coordinate (ai)    at (\k-\x, 0, 0);
+            \coordinate (bi)    at (\k-2*\x/3, 0, 0);
             \coordinate (ci)    at (\k, 0, 0);
 
-            \filldraw [band, densely dashed]
+            %\draw [band, densely dashed] (ai) circle [x radius=0.34*\z/2, y radius=\y/2];
+            %\draw [band] (bi) circle [x radius=0.34*\z/2, y radius=\y/2];
+            %\draw [box, densely dashed] (ci) circle [x radius=0.34*\z/2, y radius=\y/2];
+            %\draw [densely dashed]
+                %(chi) arc [x radius=0.34*\z/2,
+                            %y radius=\y/2,
+                            %start angle=90,
+                            %end angle=-90];
+            % box fill
+            \filldraw [box, draw opacity=0]
+                (bli) arc [x radius=0.34*\z/2,
+                            y radius=\y/2,
+                            start angle=270,
+                            end angle=90]
+                -- (chi) arc [x radius=0.34*\z/2,
+                            y radius=\y/2,
+                            start angle=90,
+                            end angle=270]
+                --  (bli);
+            % band fill
+            \filldraw [band, draw opacity=0]
+                (ali) arc [x radius=0.34*\z/2,
+                            y radius=\y/2,
+                            start angle=270,
+                            end angle=90]
+                -- (bhi) arc [x radius=0.34*\z/2,
+                            y radius=\y/2,
+                            start angle=90,
+                            end angle=270]
+                --  (ali);
+            % dashed lines
+            \draw [densely dashed] 
                 (ahi) arc [x radius=0.34*\z/2,
                             y radius=\y/2,
                             start angle=90,
                             end angle=-90];
-            \filldraw [band]
-                (ali) arc [x radius=0.34*\z/2,
-                            y radius=\y/2,
-                            start angle=270,
-                            end angle=90];
-            \filldraw [boxinner]
-                (bhi) arc [x radius=0.34*\z/2,
-                            y radius=\y/2,
-                            start angle=90,
-                            end angle=-90];
-            \filldraw [boxinner]
+            % visible lines
+            \draw [band, fill opacity=0]
                 (bli) arc [x radius=0.34*\z/2,
                             y radius=\y/2,
                             start angle=270,
                             end angle=90];
-            \filldraw [box, densely dashed]
-                (chi) arc [x radius=0.34*\z/2,
-                            y radius=\y/2,
-                            start angle=90,
-                            end angle=-90];
-            \filldraw [box]
-                (cli) arc [x radius=0.34*\z/2,
+            \draw [box, fill opacity=0]
+                (ali) arc [x radius=0.34*\z/2,
                             y radius=\y/2,
                             start angle=270,
-                            end angle=90];
+                            end angle=90]
+                -- (chi) arc [x radius=0.34*\z/2,
+                            y radius=\y/2,
+                            start angle=90,
+                            end angle=270]
+                --  (ali);
 
             \path (ali) edge ["\xlabel"',midway] (cli);
 
