@@ -13,7 +13,7 @@
         actions,fill=\bandfill, draw=\bandfill]
         
         \pgfmathsetmacro{\y}{\cubey*\scale}
-        \pgfmathsetmacro{\z}{\cubez*\scale}
+        \pgfmathsetmacro{\z}{\cubez*\scale} % !not really relevant here
 
         %Multiple concatenated boxes	 	  	
         \foreach[count=\i,%
@@ -22,17 +22,6 @@
                  \unscaledx in \cubex
         {
             \pgfmathsetmacro{\x}{\unscaledx*\scale}
-            \coordinate (a)     at (\k-\x   , \y/2 , \z/2); 
-            \coordinate (art)   at (\k-\x/3 , \y/2 , \z/2); %a_right_third
-            \coordinate (b)     at (\k-\x   ,-\y/2 , \z/2); 
-            \coordinate (brt)   at (\k-\x/3 ,-\y/2 , \z/2); %b_right_third
-            \coordinate (c)     at (\k      ,-\y/2 , \z/2); 
-            \coordinate (d)     at (\k      , \y/2 , \z/2); 
-            \coordinate (e)     at (\k      , \y/2 ,-\z/2); 
-            \coordinate (f)     at (\k      ,-\y/2 ,-\z/2); 
-            \coordinate (g)     at (\k-\x   ,-\y/2 ,-\z/2); 
-            \coordinate (h)     at (\k-\x   , \y/2 ,-\z/2); 
-            \coordinate (hrt)   at (\k-\x/3 , \y/2 ,-\z/2); %h_right_third
 
             \coordinate (ahi)    at (\k-\x, \y/2, 0);
             \coordinate (ali)    at (\k-\x, -\y/2, 0);
@@ -111,7 +100,7 @@
         %\path (b1) edge ["\ylabel",midway] (a1);  %height label 	  
         
         \tikzstyle{captionlabel}=[text width=15*\LastEastx/\scale,text centered] 
-        \path (\LastEastx/2,-\y/2,+\z/2) + (0,-25pt) coordinate (cap) 
+        \path (\LastEastx/2,-\y/2) + (0,-25pt) coordinate (cap) 
         edge ["\textcolor{black}{ \bf \caption}"',captionlabel] (cap); %Block caption/pic object label
          
         %Define nodes to be used outside on the pic object
